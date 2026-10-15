@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Downloader Pro</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <span class="logo">▶ YouTube Downloader Pro</span>
+    <span id="totalLabel" class="total-label"></span>
+  </header>
+
+  <!-- CONTROLS -->
+  <section class="controls">
+    <!-- URL row -->
+    <div class="input-row">
+      <input id="urlInput" type="text" placeholder="https://youtube.com/playlist?list=...  or single video URL" />
+      <button id="fetchBtn" onclick="onFetch()">Fetch</button>
+    </div>
+
+    <!-- Quality / Save / Buttons -->
+    <div class="options-row">
+      <div class="field">
+        <label>Quality</label>
+        <select id="qualitySelect">
+          {% for q in qualities %}
+          <option value="{{ q }}">{{ q }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="field grow">
+        <label>Save To</label>
+        <span class="info-text">Files are saved to the <code>downloads/</code> folder on the server, then a download link appears.</span>
+      </div>
+
+      <div class="btn-group">
+        <button id="estimateBtn" class="btn-secondary" onclick="onEstimate()" disabled>⚖ Estimate Size</button>
+        <label class="checkbox-label">
+          <input type="checkbox" id="selectAll" checked onchange="toggleAll()" />
+          Select All
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIST HEADER -->
+  <div class="list-header" id="listHeader" style="display:none">
+    <span style="width:28px">#</span>
+    <span style="width:24px"></span>
+    <span class="grow">Title</span>
+    <span style="width:80px">Duration</span>
+    <span style="width:100px">Size</span>
+    <span style="width:160px">Status</span>
+  </div>
+
+  <!-- VIDEO LIST -->
+  <div id="videoList" class="video-list">
+    <p id="emptyMsg" class="empty-msg">Paste a YouTube URL and click Fetch</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <button id="dlBtn" class="btn-download" onclick="onDownload()" disabled>⬇ Download</button>
+    <div class="progress-wrap">
+      <div id="overallBar" class="progress-bar"><div id="overallFill" style="width:0%"></div></div>
+      <span id="statusLabel" class="status-text">Ready</span>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
